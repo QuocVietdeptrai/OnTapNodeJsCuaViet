@@ -1,12 +1,16 @@
-// [GET ] /products
+// [GET ] /admin/products 
 const Product = require("../../models/product_model");
 
 module.exports.index = async (req, res) => {
-    console.log(req.query);
-    console.log("vIET")
+    // console.log(req.query.status);
+
     let find = {
       
     };
+    if(req.query.status){
+        find.status = req.query.status
+    }
+    
     try {
         const products = await Product.find(find);
 
@@ -15,13 +19,13 @@ module.exports.index = async (req, res) => {
             return item;
         })
         console.log(newProducts); // Kiểm tra giá trị của mảng products
-        res.render("client/pages/products/index.pug", {
+        res.render("admin/pages/products/index.pug", {
             pageTitle: "Danh sách sản phẩm",  // Thêm dấu phẩy ở đây
             products: newProducts               // Đảm bảo truyền đúng dữ liệu
         });
     } catch (error) {
         console.error("Lỗi khi lấy sản phẩm:", error);
-        res.render("client/pages/products/index.pug", {
+        res.render("admin/pages/products/index.pug", {
             pageTitle: "Danh sách sản phẩm",
             products: []  // Trả về mảng rỗng nếu có lỗi
         });
