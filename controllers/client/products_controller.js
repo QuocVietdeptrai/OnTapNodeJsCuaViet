@@ -2,13 +2,10 @@
 const Product = require("../../models/product_model");
 
 module.exports.index = async (req, res) => {
-    console.log(req.query);
-    console.log("vIET")
-    let find = {
-      
-    };
     try {
-        const products = await Product.find(find);
+        const products = await Product.find({
+       
+        });
 
         const newProducts= products.map(item => {
             item.priceNew = (item.price*(100-item.discountPercentage)/100).toFixed(0);
